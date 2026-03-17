@@ -11,7 +11,6 @@ void main() {
 class ArfanTournamentApp extends StatelessWidget {
   const ArfanTournamentApp({super.key});
 
-  // Ye function missing tha, isliye error aa raha tha
   void joinMatch(String playerName) {
     print("Player $playerName joined the match!");
   }
@@ -24,7 +23,6 @@ class ArfanTournamentApp extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 50),
-            // Header Section
             Center(
               child: Column(
                 children: [
@@ -41,7 +39,6 @@ class ArfanTournamentApp extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            // Match Card
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(20),
@@ -78,11 +75,11 @@ class ArfanTournamentApp extends StatelessWidget {
           ),
           ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.cyanAccent),
-            onPressed: () => joinMatch("Erfan Player"), // Ab ye function chalega
+            onPressed: () => joinMatch("Erfan Player"),
             child: const Text("JOIN", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-          )
+          ),
         ],
       ),
     );
   }
-}
+} // <--- Ye brackets aur code missing tha tumhare file mein
