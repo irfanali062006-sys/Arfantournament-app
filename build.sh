@@ -1,9 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
+# Flutter download karo
 git clone https://github.com/flutter/flutter.git -b stable
+
+# Path set karo
 export PATH="$PATH:`pwd`/flutter/bin"
 
-# YE LINE ZAROORI HAI: Ye web folder bana degi
-flutter create . --platforms web
+# Flutter doctor check karo
+flutter doctor
 
-flutter build web
+# Web build karo
+flutter build web --release
