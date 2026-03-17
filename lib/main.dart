@@ -1,40 +1,111 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'dart:async';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData.dark(),
-    home: TournamentHome(),
-  ));
+void main() => runApp(ArfanProApp());
+
+class ArfanProApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Color(0xFF0D0D0D), // Deep Black
+        primaryColor: Colors.orangeAccent,
+      ),
+      home: SplashScreen(),
+    );
+  }
 }
 
-class TournamentHome extends StatelessWidget {
-  // Tumhara Firebase Link
-  final String dbUrl = "https://fftorniment-default-rtdb.firebaseio.com/players.json";
+// 1. KHATARNAK SPLASH SCREEN & BRANDING
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
 
-  // Function: Jab user Join dabayega toh data yahan se Firebase jayega
-  Future<void> joinMatch(String playerName) async {
-    try {
-      final response = await http.post(
-        Uri.parse(dbUrl),
-        body: json.encode({
-          "name": playerName,
-          "game": "Free Fire Solo",
-          "time": DateTime.now().toString(),
-        }),
-      );
-      if (response.statusCode == 200) {
-        print("Success! Player Joined.");
-      }
-    } catch (e) {
-      print("Error: $e");
-    }
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 4), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Gaming Logo Placeholder
+            Icon(Icons.sports_esports, size: 100, color: Colors.orangeAccent),
+            SizedBox(height: 20),
+            Text("ARFANTOURNAMENT", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, letterSpacing: 2, color: Colors.white)),
+            Text("Powered by @arfan_ale", style: TextStyle(fontSize: 14, color: Colors.orangeAccent.withOpacity(0.8))),
+            SizedBox(height: 40),
+            CircularProgressIndicator(color: Colors.orangeAccent),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// 2. SECURE LOGIN SCREEN (INSTA STYLE)
+class LoginScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(25.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("SECURE ACCESS", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+            SizedBox(height: 30),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Instagram Username / Email",
+                filled: true,
+                fillColor: Colors.white10,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: "Password",
+                filled: true,
+                fillColor: Colors.white10,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+            SizedBox(height: 25),
+            Container(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.orangeAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                onPressed: () {
+                  // Agla step: Home Dashboard par jana
+                },
+                child: Text("LOGIN TO ARENA", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+              ),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: Text("Don't have an account? Register Now", style: TextStyle(color: Colors.white54)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("FF Tournament - @erfan_ale")),
       body: Center(
